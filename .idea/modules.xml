@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Envirobros.iml" filepath="$PROJECT_DIR$/.idea/modules/Envirobros.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Envirobros.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Envirobros.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/aquatech.iml" filepath="$PROJECT_DIR$/.idea/modules/aquatech.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/aquatech.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/aquatech.app.iml" />
     </modules>
   </component>
 </project>

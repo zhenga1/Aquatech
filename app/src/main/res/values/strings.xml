@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Envirobros</string>
+    <string name="app_name">Aquatech</string>
     <string name="clean_aqua">Clean Aqua</string>
     <string name="title_activity_maps_temperature">Map</string>
     <string name="title_activity_maps">Map</string>
