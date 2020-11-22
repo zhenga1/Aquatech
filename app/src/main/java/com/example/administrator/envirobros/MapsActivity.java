@@ -3,15 +3,21 @@ package com.example.administrator.envirobros;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.text.InputType;
+import android.util.TypedValue;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 
@@ -26,7 +32,9 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, LocationListener, GoogleMap.OnMarkerClickListener {
+import java.util.ArrayList;
+
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, LocationListener, GoogleMap.OnMarkerClickListener, GoogleMap.OnMapClickListener {
 
     private GoogleMap mMap;
     private LocationManager manager;
@@ -36,7 +44,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private LatLng wks = new LatLng(22.43004101, 114.23630923);
     private LatLng tungchung = new LatLng(22.29424854, 113.94256443);
     //order is TC, WKS, MLS Beaches
-
+    private ArrayList<Marker> markers;
     private boolean onceonly = true;
     private double lat, lng;
     private CustomTextInfoWindowClass infoWindowClass;
@@ -45,6 +53,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private String[] strings = {"temperature:  ", "ph:  ","conductivity:  "};
     private double temperature[] = {24.3,22.9,23.4};
     private double conductivity[] = {1.55,2.76,3.06};
+    private double m_Text=0.0;
+    private Marker newestmarker;
+    private String m_Title ="";
+
     @SuppressLint("MissingPermission")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,6 +114,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.setInfoWindowAdapter(infoWindowClass);
         permissions();
         mMap.setOnMarkerClickListener(this);
+        mMap.setOnMapClickListener(this);
         mMap.addMarker(new MarkerOptions().position(tungchung)
                 .title("Tung Chung Pier")
                 .snippet(strings[one_selected] + arrayreturn(one_selected)[0]));
@@ -191,5 +204,57 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public boolean onMarkerClick(Marker marker) {
         infoWindowClass.getInfoContents(marker);
         return false;
+    }
+
+    @Override
+    public void onMapClick(final LatLng latLng) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Please input the data that you have collected ");
+
+        LinearLayout layout = new LinearLayout(this);
+        layout.setOrientation(LinearLayout.VERTICAL);
+
+// Add a TextView here for the "Title" label, as noted in the comments
+        final EditText titleBox = new EditText(this);
+        titleBox.setHint("Title");
+        titleBox.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
+        layout.addView(titleBox); // Notice this is an add method
+
+// Add another TextView here for the "Description" label
+        final EditText descriptionBox = new EditText(this);
+        descriptionBox.setHint("Description");
+        descriptionBox.setTextSize(TypedValue.COMPLEX_UNIT_SP,15);
+        descriptionBox.setInputType(InputType.TYPE_CLASS_NUMBER |  InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        layout.addView(descriptionBox); // Another add method
+        builder.setView(layout);
+
+// Set up the buttons
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                m_Title = titleBox.getText().toString();
+                try {
+                    m_Text = Double.parseDouble(descriptionBox.getText().toString());
+                }
+                catch(NumberFormatException e){
+                    e.printStackTrace();
+                    dialog.cancel();
+                    Toast.makeText(MapsActivity.this, "Sorry, the description you provided must be in the form of a decimial integer, thank you.", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                mMap.addMarker(new MarkerOptions().position(latLng)
+                        .title(m_Title)
+                        .snippet(strings[one_selected] + m_Text));
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 18));
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        builder.show();
     }
 }
