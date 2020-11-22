@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    tools:context="com.example.administrator.envirobros.Aboutus">
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="75sp"
+        android:layout_height="50sp"
+        android:layout_gravity="left"
+        android:maxLines="1"
+        android:text="Back"
+        android:onClick="goback"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:textAlignment="center"
+        android:text="About Us"
+        android:textSize="30sp"
+        android:textStyle="italic"
+        android:maxLines="1"
+        android:textColor="#000"
+         />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/self_introduction" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:srcCompat="@mipmap/new_logo" />
+
+
+</LinearLayout>

@@ -38,11 +38,16 @@ public class MainActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) { //i represents the position
-                Intent intent = new Intent(MainActivity.this, MapsActivity.class);
+                Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
                 intent.putExtra("type", i);
-                MainActivity.this.startActivity(intent);
+                startActivity(intent);
             }
         });
+    }
+    public void aboutus(View view)
+    {
+        Intent intent = new Intent(getApplicationContext(), Aboutus.class);
+        startActivity(intent);
     }
     class MyAdapter extends ArrayAdapter<String>{
         Context context;

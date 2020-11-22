@@ -3,4 +3,9 @@
     <string name="clean_aqua">Clean Aqua</string>
     <string name="title_activity_maps_temperature">Map</string>
     <string name="title_activity_maps">Map</string>
+    <string name="self_introduction" formatted="true">Hi, this app is the Aquatech app, designed to help raise awareness for marine pollution.
+    Here, you can see the conductivity, ph, and temperature values of oceanwater at different locations in Hong Kong. You are also welcome to use our prototype to measure data and input it yourselves.\n\n
+
+    We are team Envirobros, consisting of Aaron Zheng(team captain), Gordon Ng and Ivan Huang. We are from Renaissance College Hong Kong, taking part in this year\'s CISxIdeas Hackathon and hoping to make a positive
+        change to the world we live in. </string>
 </resources>
